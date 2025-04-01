@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: linear-gradient(270deg, #1b1429, #140f23);
+            overflow: hidden;
+        }
+
+        .sky {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom left, hsla(0, 3%, 6%, 0.678), rgba(12, 10, 22, 0.863));
+        }
+
+        .star {
+            width: 1px;
+            height: 1px;
+            border-radius: 100%;
+            background-color: white;
+            position: absolute;
+            animation: twinkle 3s infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .shootstar {
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(to left, white, transparent);
+            position: absolute;
+            transform: rotate(135deg);
+            animation: shoot 5s infinite ease-out;
+        }
+
+        @keyframes shoot {
+            from {
+                transform: translate(0,0) rotate(135deg);
+                opacity: 1;
+            }
+            to {
+                transform: translate(-800px,800px) rotate(135deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sky"></div>
+    <script>
+        const sky = document.querySelector('.sky')
+        
+        function createStar() {
+            sky.innerHTML = '';
+            const width = window.innerWidth
+            const height = window.innerHeight   
+            const star_count = Math.min(width/5,100)
+            for (var i = 0; i<star_count;i++) {
+                star = document.createElement('div')
+                star.className = `star ${i}`
+
+                star.style.left = Math.floor((Math.random() * width)) + 'px'
+                star.style.top = Math.floor((Math.random() * height)) + 'px'
+                const duration = (Math.random() * 3 + 1).toFixed(1);
+                star.style.animation = `twinkle ${duration}s infinite`;
+
+                sky.appendChild(star)
+            }
+        }
+
+        function creatShootstar() {
+            const width = window.innerWidth
+            const height = window.innerHeight 
+
+            shootstar = document.createElement('div')
+            shootstar.className = 'shootstar'
+
+            shootstar.style.left = Math.floor((Math.random() * width)) + 'px'
+            shootstar.style.top = Math.floor((Math.random() * (height/2))) + 'px'
+            
+            sky.appendChild(shootstar)
+        }
+
+        createStar()
+        setInterval(() => {
+            if (Math.random() < 0.4) {
+                creatShootstar()
+            }
+        }, 2000);
+        
+        
+        window.addEventListener('resize', () => {
+            createStar()
+            creatShootstar()
+        })
+    </script>
+</body>
+</html>
