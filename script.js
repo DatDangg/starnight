@@ -19,16 +19,19 @@ function createStar() {
 }
 
 function creatShootstar() {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+    if (!document.querySelector('.shootstar')) {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-  shootstar = document.createElement("div");
-  shootstar.className = "shootstar";
+        shootstar = document.createElement("div");
+        shootstar.className = "shootstar";
 
-  shootstar.style.left = Math.floor(Math.random() * width) + "px";
-  shootstar.style.top = Math.floor(Math.random() * (height / 2)) + "px";
+        shootstar.style.left = Math.floor(Math.random() * width) + "px";
+        shootstar.style.top = Math.floor(Math.random() * (height / 2)) + "px";
 
-  sky.appendChild(shootstar);
+        sky.appendChild(shootstar);
+    }
+    else sky.removeChild(shootstar);
 }
 
 createStar();
